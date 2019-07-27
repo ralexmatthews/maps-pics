@@ -23,6 +23,15 @@ const TextContainer = styled(View)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 200px;
+`;
+const PhotoTextHolder = styled(View)`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
 `;
 
 export const StateOptions = ({ stateName, close, ...rest }) => {
@@ -38,6 +47,27 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
   return (
     <>
       <Container {...rest}>
+        <TextContainer>
+          <FancyText>{stateName}</FancyText>
+          {fileExists && (
+            <TouchableOpacity
+              onPress={() => {
+                FileSystem.deleteAsync(
+                  FileSystem.documentDirectory +
+                    stateName.replace(/ /gim, "") +
+                    ".jpg",
+                  {
+                    idempotent: true
+                  }
+                ).then(() => {
+                  setFileExists(false);
+                });
+              }}
+            >
+              <FancyText>Clear</FancyText>
+            </TouchableOpacity>
+          )}
+        </TextContainer>
         <TouchableOpacity
           onPress={() =>
             getCameraRollPermission().then(
@@ -56,7 +86,6 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
             )
           }
         >
-          <FancyText>{stateName}</FancyText>
           {fileExists ? (
             <Image
               style={{ width: 200, height: 200 }}
@@ -68,7 +97,9 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
               }}
             />
           ) : (
-            <FancyText>No Photo Selected</FancyText>
+            <PhotoTextHolder>
+              <FancyText>No Photo Selected</FancyText>
+            </PhotoTextHolder>
           )}
         </TouchableOpacity>
       </Container>
