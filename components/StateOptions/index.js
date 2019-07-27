@@ -5,6 +5,7 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorContext } from "../ColorContext";
 
 const Container = styled(View)`
   display: flex;
@@ -15,7 +16,6 @@ const Container = styled(View)`
   height: 100%;
 `;
 const FancyText = styled(Text)`
-  color: white;
   font-size: 18;
   font-weight: 100;
 `;
@@ -35,6 +35,7 @@ const PhotoTextHolder = styled(View)`
 `;
 
 export const StateOptions = ({ stateName, close, ...rest }) => {
+  const [{ accent }] = useColorContext();
   const [fileExists, setFileExists] = useState(false);
   useEffect(() => {
     FileSystem.getInfoAsync(
@@ -48,7 +49,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
     <>
       <Container {...rest}>
         <TextContainer>
-          <FancyText>{stateName}</FancyText>
+          <FancyText style={{ color: accent }}>{stateName}</FancyText>
           {fileExists && (
             <TouchableOpacity
               onPress={() => {
@@ -64,7 +65,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
                 });
               }}
             >
-              <FancyText>Clear</FancyText>
+              <FancyText style={{ color: accent }}>Clear</FancyText>
             </TouchableOpacity>
           )}
         </TextContainer>
@@ -98,7 +99,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
             />
           ) : (
             <PhotoTextHolder>
-              <FancyText>No Photo Selected</FancyText>
+              <FancyText style={{ color: accent }}>No Photo Selected</FancyText>
             </PhotoTextHolder>
           )}
         </TouchableOpacity>
@@ -107,7 +108,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
         name="ios-close"
         size={48}
         onPress={close}
-        color="white"
+        color={accent}
         style={{ position: "absolute", left: 30, top: 30 }}
       />
     </>
