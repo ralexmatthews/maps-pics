@@ -26,11 +26,10 @@ const TextContainer = styled(View)`
 `;
 
 export const StateOptions = ({ stateName, close, ...rest }) => {
-  const [key, setKey] = useState(0);
   const [fileExists, setFileExists] = useState(false);
   useEffect(() => {
     FileSystem.getInfoAsync(
-      FileSystem.documentDirectory + stateName + ".jpg"
+      FileSystem.documentDirectory + stateName.replace(/ /gim, "") + ".jpg"
     ).then(({ exists }) => {
       setFileExists(exists);
     });
@@ -46,7 +45,10 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
                 !cancelled &&
                 FileSystem.copyAsync({
                   from: uri,
-                  to: FileSystem.documentDirectory + stateName + ".jpg"
+                  to:
+                    FileSystem.documentDirectory +
+                    stateName.replace(/ /gim, "") +
+                    ".jpg"
                 }).then(() => {
                   setFileExists(false);
                   setFileExists(true);
@@ -59,7 +61,10 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
             <Image
               style={{ width: 200, height: 200 }}
               source={{
-                uri: FileSystem.documentDirectory + stateName + ".jpg"
+                uri:
+                  FileSystem.documentDirectory +
+                  stateName.replace(/ /gim, "") +
+                  ".jpg"
               }}
             />
           ) : (
