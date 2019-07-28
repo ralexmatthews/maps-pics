@@ -45,7 +45,7 @@ export const Colors = ({ close }) => {
       <View style={{ position: "absolute", left: 30, bottom: 30 }}>
         <TouchableOpacity
           onPress={() => {
-            setColors({ background: "#000", accent: "#fff" });
+            setColors({ background: "#000", accent: "#FFF9E6" });
           }}
         >
           <View>

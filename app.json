@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Map",
-    "slug": "Map",
+    "name": "Stray",
+    "slug": "Stray",
     "privacy": "public",
     "sdkVersion": "33.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["ios"],
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

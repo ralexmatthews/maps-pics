@@ -1,10 +1,13 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
 import { AsyncStorage } from "react-native";
 
-const ColorContext = createContext({ background: "#000", accent: "#fff" });
+const ColorContext = createContext({ background: "#000", accent: "#FFF9E6" });
 
 export const ColorContextProvider = props => {
-  const [colors, setColors] = useState({ background: "#000", accent: "#fff" });
+  const [colors, setColors] = useState({
+    background: "#000",
+    accent: "#FFF9E6"
+  });
 
   useEffect(() => {
     AsyncStorage.getItem("colors").then(value => {
