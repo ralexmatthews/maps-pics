@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
+import { View, TouchableOpacity, Alert, Image } from "react-native";
 import styled from "styled-components";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorContext } from "../ColorContext";
+import { Text } from "../Text";
 
 const Container = styled(View)`
   display: flex;
@@ -49,7 +50,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
     <>
       <Container {...rest}>
         <TextContainer>
-          <FancyText style={{ color: accent }}>{stateName}</FancyText>
+          <FancyText>{stateName}</FancyText>
           {fileExists && (
             <TouchableOpacity
               onPress={() => {
@@ -65,7 +66,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
                 });
               }}
             >
-              <FancyText style={{ color: accent }}>Clear</FancyText>
+              <FancyText>Clear</FancyText>
             </TouchableOpacity>
           )}
         </TextContainer>
@@ -99,7 +100,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
             />
           ) : (
             <PhotoTextHolder>
-              <FancyText style={{ color: accent }}>No Photo Selected</FancyText>
+              <FancyText>No Photo Selected</FancyText>
             </PhotoTextHolder>
           )}
         </TouchableOpacity>

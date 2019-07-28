@@ -14,6 +14,7 @@ import {
   ColorContextProvider
 } from "./components/ColorContext";
 import { SettingsIcon } from "./components/SettingsIcon";
+import { About } from "./components/About";
 
 const Background = props => {
   const [{ background }] = useColorContext();
@@ -37,6 +38,23 @@ const SettingsContainer = styled(BlurView)`
   width: 200px;
   padding: 30px 30px 0 0;
 `;
+
+const SettingsBlurView = ({ ...props }) => {
+  const [{ accent }] = useColorContext();
+
+  const red = parseInt(accent.substring(1, 3), 16);
+  const green = parseInt(accent.substring(3, 5), 16);
+  const blue = parseInt(accent.substring(5), 16);
+  const dark = red * 0.299 + green * 0.587 + blue * 0.114 > 186;
+
+  return (
+    <SettingsContainer
+      {...props}
+      tint={dark ? "dark" : "light"}
+      intensity={85}
+    />
+  );
+};
 
 export default function App() {
   const [selectedState, setSelectedState] = useState("");
@@ -66,17 +84,14 @@ export default function App() {
                 stateName={selectedState}
               />
             ),
-            colors: <Colors close={() => setPage("home")} />
+            colors: <Colors close={() => setPage("home")} />,
+            about: <About close={() => setPage("home")} />
           }}
         />
         <Spring to={{ translateX: settingsOpen ? 0 : 200 }}>
           {({ translateX }) =>
             translateX < 195 && (
-              <SettingsContainer
-                style={{ transform: [{ translateX }] }}
-                tint="dark"
-                intensity={90}
-              >
+              <SettingsBlurView style={{ transform: [{ translateX }] }}>
                 <SettingsListItem
                   onPress={() => {
                     setPage("colors");
@@ -111,7 +126,15 @@ export default function App() {
                 >
                   Export Map
                 </SettingsListItem>
-              </SettingsContainer>
+                <SettingsListItem
+                  onPress={() => {
+                    setPage("about");
+                    setSettingsOpen(false);
+                  }}
+                >
+                  About
+                </SettingsListItem>
+              </SettingsBlurView>
             )
           }
         </Spring>

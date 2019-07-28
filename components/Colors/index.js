@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
 import { ColorPicker, fromHsv } from "react-native-color-picker";
 import { useColorContext, useSaveColor } from "../ColorContext";
+import { Text } from "../Text";
 
 const Container = styled(View)`
   display: flex;
@@ -49,7 +50,7 @@ export const Colors = ({ close }) => {
           }}
         >
           <View>
-            <Text style={{ color: accent }}>Reset</Text>
+            <Text>Reset</Text>
           </View>
         </TouchableOpacity>
       </View>
