@@ -13,6 +13,8 @@ export const Map = forwardRef(({ onPress, ...rest }, ref) => {
       pinchGestureEnabled
       contentContainerStyle={{ height: 800, width: 1200, padding: 100 }}
       contentOffset={{ x: 250, y: 150 }}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       {...rest}
     >
       <Svg
