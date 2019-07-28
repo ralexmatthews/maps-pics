@@ -7,7 +7,9 @@ export const SettingsListItem = ({ onPress, children, ...rest }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View {...rest}>
-        <Text style={{ color: accent, marginBottom: 16 }}>{children}</Text>
+        <Text style={{ color: accent, marginBottom: 16, fontSize: 18 }}>
+          {children}
+        </Text>
       </View>
     </TouchableOpacity>
   );
