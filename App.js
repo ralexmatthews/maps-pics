@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, CameraRoll, Alert } from "react-native";
 import styled from "styled-components";
 import { Spring } from "react-spring/renderprops";
 import { BlurView } from "expo-blur";
+import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import { Map } from "./components/Map";
 import { TransitionView } from "./components/TransitionView";
 import { StateOptions } from "./components/StateOptions";
@@ -42,6 +43,8 @@ export default function App() {
   const [page, setPage] = useState("home");
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  const mapRef = useRef();
+
   return (
     <ColorContextProvider>
       <Background>
@@ -54,6 +57,7 @@ export default function App() {
                   setPage("options");
                   setSelectedState(state);
                 }}
+                ref={mapRef}
               />
             ),
             options: (
@@ -81,14 +85,45 @@ export default function App() {
                 >
                   Colors
                 </SettingsListItem>
+                <SettingsListItem
+                  onPress={() => {
+                    if (!mapRef.current) {
+                      return;
+                    }
+
+                    takeSnapshotAsync(mapRef.current)
+                      .then(CameraRoll.saveToCameraRoll)
+                      .then(() => {
+                        Alert.alert(
+                          "Saved",
+                          "Your map has been saved to your camera roll",
+                          [{ text: "OK" }]
+                        );
+                      })
+                      .catch(() => {
+                        Alert.alert(
+                          "Error",
+                          "There was an error when attempting to save your photo to your camera roll",
+                          [{ text: "OK" }]
+                        );
+                      });
+                  }}
+                >
+                  Export Map
+                </SettingsListItem>
               </SettingsContainer>
             )
           }
         </Spring>
         <SettingsIcon
-          style={{ position: "absolute", bottom: 30, right: 30 }}
+          style={{
+            position: "absolute",
+            bottom: 30,
+            right: 30,
+            opacity: page === "home" ? 1 : 0
+          }}
           onPress={() => {
-            setSettingsOpen(!settingsOpen);
+            page === "home" && setSettingsOpen(!settingsOpen);
           }}
         />
       </Background>

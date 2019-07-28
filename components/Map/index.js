@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { ScrollView } from "react-native";
 import Svg, { Path, Image, ClipPath } from "react-native-svg";
 import * as FileSystem from "expo-file-system";
 import { useColorContext } from "../ColorContext";
 
-export const Map = ({ onPress, ...rest }) => {
+export const Map = forwardRef(({ onPress, ...rest }, ref) => {
   const [{ accent, background }] = useColorContext();
   return (
     <ScrollView
@@ -15,7 +15,13 @@ export const Map = ({ onPress, ...rest }) => {
       contentOffset={{ x: 250, y: 150 }}
       {...rest}
     >
-      <Svg height="589px" viewBox="0 0 1000 589" width="1000px">
+      <Svg
+        height="589px"
+        viewBox="0 0 1000 589"
+        width="1000px"
+        style={{ backgroundColor: background }}
+        ref={ref}
+      >
         <ClipPath id="MAClip">
           <Path
             id="MA"
@@ -1477,4 +1483,4 @@ export const Map = ({ onPress, ...rest }) => {
       </Svg>
     </ScrollView>
   );
-};
+});
