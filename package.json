@@ -10,6 +10,7 @@
   "dependencies": {
     "expo": "^33.0.0",
     "expo-blur": "~5.0.1",
+    "expo-font": "~5.0.1",
     "expo-image-picker": "~5.0.2",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
@@ -21,8 +22,15 @@
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
+    "babel-eslint": "9.x",
     "babel-preset-expo": "^5.1.1",
-    "eslint-plugin-react": "^7.14.2"
+    "eslint": "5.x",
+    "eslint-config-react-app": "^4.0.1",
+    "eslint-plugin-flowtype": "^3.12.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.6.1"
   },
   "private": true
 }

@@ -7,6 +7,7 @@ import * as FileSystem from "expo-file-system";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorContext } from "../ColorContext";
 import { Text } from "../Text";
+import { convertStateNameToFileName } from "../../utils";
 
 const Container = styled(View)`
   display: flex;
@@ -40,7 +41,9 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
   const [fileExists, setFileExists] = useState(false);
   useEffect(() => {
     FileSystem.getInfoAsync(
-      FileSystem.documentDirectory + stateName.replace(/ /gim, "") + ".jpg"
+      FileSystem.documentDirectory +
+        convertStateNameToFileName(stateName) +
+        ".jpg"
     ).then(({ exists }) => {
       setFileExists(exists);
     });
@@ -56,7 +59,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
               onPress={() => {
                 FileSystem.deleteAsync(
                   FileSystem.documentDirectory +
-                    stateName.replace(/ /gim, "") +
+                    convertStateNameToFileName(stateName) +
                     ".jpg",
                   {
                     idempotent: true
@@ -79,7 +82,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
                   from: uri,
                   to:
                     FileSystem.documentDirectory +
-                    stateName.replace(/ /gim, "") +
+                    convertStateNameToFileName(stateName) +
                     ".jpg"
                 }).then(() => {
                   setFileExists(false);
@@ -94,7 +97,7 @@ export const StateOptions = ({ stateName, close, ...rest }) => {
               source={{
                 uri:
                   FileSystem.documentDirectory +
-                  stateName.replace(/ /gim, "") +
+                  convertStateNameToFileName(stateName) +
                   ".jpg"
               }}
             />

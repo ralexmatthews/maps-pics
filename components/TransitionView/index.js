@@ -12,6 +12,7 @@ export const TransitionView = ({ pages, currentPage }) => {
   useEffect(() => {
     rendered && setLeaving(true);
     setRendered(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   return (

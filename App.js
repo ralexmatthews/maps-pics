@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, CameraRoll, Alert } from "react-native";
 import styled from "styled-components";
 import { Spring } from "react-spring/renderprops";
-import { BlurView } from "expo-blur";
+import * as Font from "expo-font";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import { Map } from "./components/Map";
 import { TransitionView } from "./components/TransitionView";
@@ -15,6 +15,8 @@ import {
 } from "./components/ColorContext";
 import { SettingsIcon } from "./components/SettingsIcon";
 import { About } from "./components/About";
+import { SettingsBlurView } from "./components/SettingsBlurView";
+import { StatusBar } from "./components/StatusBar";
 
 const Background = props => {
   const [{ background }] = useColorContext();
@@ -26,35 +28,6 @@ const StyledBackground = styled(View)`
   height: 100%;
   width: 100%;
 `;
-const SettingsContainer = styled(BlurView)`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 200px;
-  padding: 30px 30px 0 0;
-`;
-
-const SettingsBlurView = ({ ...props }) => {
-  const [{ accent }] = useColorContext();
-
-  const red = parseInt(accent.substring(1, 3), 16);
-  const green = parseInt(accent.substring(3, 5), 16);
-  const blue = parseInt(accent.substring(5), 16);
-  const dark = red * 0.299 + green * 0.587 + blue * 0.114 > 186;
-
-  return (
-    <SettingsContainer
-      {...props}
-      tint={dark ? "dark" : "light"}
-      intensity={85}
-    />
-  );
-};
 
 export default function App() {
   const [selectedState, setSelectedState] = useState("");
@@ -63,8 +36,15 @@ export default function App() {
 
   const mapRef = useRef();
 
+  useEffect(() => {
+    Font.loadAsync({
+      "Fira-Code": require("./assets/fonts/FiraCode-Retina.ttf")
+    });
+  }, []);
+
   return (
     <ColorContextProvider>
+      <StatusBar />
       <Background>
         <TransitionView
           currentPage={page}

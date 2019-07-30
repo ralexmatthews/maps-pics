@@ -8,7 +8,12 @@ export const Text = props => {
     <NativeText
       {...props}
       style={[
-        { color: accent, fontFamily: "Cochin", fontSize: 18 },
+        {
+          color: accent,
+          fontFamily: "Fira-Code",
+          letterSpacing: -1,
+          fontSize: 18
+        },
         props.style
       ]}
     />
