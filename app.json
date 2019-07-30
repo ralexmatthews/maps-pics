@@ -19,7 +19,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "online.alexmatthews.stray"
+      "bundleIdentifier": "online.alexmatthews.stray",
+      "icon": "./assets/icon.png"
     }
   }
 }
